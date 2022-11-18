@@ -1,0 +1,18 @@
+services:
+  db:
+    image: mysql 
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: testpasswd
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./mariadb:/docker-entrypoint-initdb.d
+  server:
+    image: apache 
+    build: ./apache
+    restart: always
+    volumes:
+      - ./apache:/usr/local/apache2/htdocs/
+    ports:
+      - "8081:80"
